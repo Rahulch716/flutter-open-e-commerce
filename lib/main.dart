@@ -20,12 +20,11 @@ class MyApp extends StatelessWidget {
             children: [
               TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(),
-                    labelText: "Login Id",
-                    labelStyle: TextStyle(color: Colors.white)
-                    //focusColor: Colors.green,
-                    ),
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  labelText: "Login Id",
+                  labelStyle: TextStyle(color: Colors.white),
+                ),
               ),
               SizedBox(
                 height: 30,
