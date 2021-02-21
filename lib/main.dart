@@ -1,20 +1,24 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:opencommerce/Sign%20up%20page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    title: 'YouBuy',
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter e-commerce',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Login Page"),
-          backgroundColor: Colors.redAccent,
-        ),
-        body: Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Login Page"),
+        backgroundColor: Colors.redAccent,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                "Forgot Password?",
+                "Forgot Passwords",
                 style: TextStyle(color: Colors.white),
               ),
               SizedBox(
@@ -52,16 +56,22 @@ class MyApp extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: () => print("Signed In"),
-                    child: Text("Sign In"),
+                    child: Text("Log In"),
                   ),
                   ElevatedButton(
-                    onPressed: () => print("Signed Up"),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PageSignUp()),
+                      );
+                    },
                     child: Text("Sign Up"),
                   ),
                 ],
               )
             ],
           ),
+          height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.all(32),
           decoration: BoxDecoration(
               image: DecorationImage(
