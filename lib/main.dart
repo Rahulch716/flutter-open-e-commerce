@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:opencommerce/Controler.dart';
 import 'package:opencommerce/Sign%20up%20page.dart';
+import 'package:opencommerce/detailed_Page.dart';
+import 'package:opencommerce/home_Page.dart';
 
 void main() {
   runApp(MaterialApp(
     title: 'YouBuy',
-    home: MyApp(),
+    //home: MyApp(),
+    home: HomeView(),
   ));
 }
 
@@ -13,10 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Login Page"),
-          backgroundColor: Colors.redAccent,
-        ),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () => print("Signed In"),
-                      child: Text("Log In"),
+                      child: Text("Sign In"),
                     ),
                     ElevatedButton(
                       onPressed: () {
