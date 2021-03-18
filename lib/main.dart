@@ -1,88 +1,39 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:opencommerce/Controler.dart';
-import 'package:opencommerce/Sign%20up%20page.dart';
-import 'package:opencommerce/detailed_Page.dart';
-import 'package:opencommerce/home_Page.dart';
+import 'package:opencommerce/views/home_view.dart';
 
 void main() {
-  runApp(MaterialApp(
-    title: 'YouBuy',
-    //home: MyApp(),
-    home: HomeView(),
-  ));
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool initialized = false;
+
+  @override
+  void initState() {
+    initApp();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(image: AssetImage("images/Logo_Auradix.png")),
-                SizedBox(height: 50,),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(),
-                    labelText: "Login Id",
-                    labelStyle: TextStyle(color: Colors.white),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(),
-                      labelText: "Password",
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                      )),
-                  obscureText: true,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "Forgot Passwords",
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => print("Signed In"),
-                      child: Text("Sign In"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => PageSignUp()),
-                        );
-                      },
-                      child: Text("Sign Up"),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.all(32),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage("images/background1.jpg"),
-              fit: BoxFit.cover,
-            )),
-          ),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter e-commerce',
+      home:
+      initialized ? HomeView() : Center(child: CircularProgressIndicator()),
     );
+  }
+
+  void initApp() async {
+    await Firebase.initializeApp();
+    setState(() {
+      initialized = true;
+    });
   }
 }
