@@ -51,7 +51,7 @@ class Product {
     inStock: json["inStock"] == null ? null : json["inStock"],
   );
 
-  Map<String, dynamic> toMap() => {
+  Map<dynamic, dynamic> toMap() => {
     "name": name == null ? null : name,
     "price": price == null ? null : price,
     "imageUrl": imageUrl == null ? null : imageUrl,

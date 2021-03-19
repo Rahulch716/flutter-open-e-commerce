@@ -9,15 +9,5 @@ class ProductService {
         snapShot.docs.map((doc) => Product.fromMap(doc.data())).toList());
 
     /// get snapshot from firebase
-    var snapShot = await fireStore.collection("Products").get();
-    var _products = <Product>[];
-    for (var doc in snapShot.docs) {
-      var json = doc.data();
-
-      /// convert json to product object
-      var p = Product.fromMap(json);
-      _products.add(p);
-    }
-    return _products;
   }
 }
