@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:opencommerce/controler/auth_controller.dart';
 import 'package:opencommerce/controler/product_controler.dart';
 import 'package:opencommerce/models/models.dart';
+import 'package:opencommerce/services/product_service.dart';
+import 'package:opencommerce/views/product_updator.dart';
 import 'package:opencommerce/views/product_view.dart';
 import 'package:opencommerce/views/widgets/cart_icon.dart';
 
-
-class HomeView extends StatefulWidget {
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  final ProductController productController = ProductController();
-
-  @override
-  void initState() {
-    loadData();
-
-    super.initState();
-  }
-
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,34 +15,60 @@ class _HomeViewState extends State<HomeView> {
         appBar: AppBar(
           centerTitle: false,
           title: Text("Free Commerce"),
-          actions: [CartIcon()],
+          actions: [
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                signOut();
+
+              },
+            ),
+            CartIcon()
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        FillProduct(Product())));
+          },
+          child: Icon(Icons.add),
         ),
         body: Container(
-          child: ListView.builder(
-            itemCount: productController.products.length,
-            itemBuilder: (BuildContext context, int index) {
-              Product product = productController.products[index];
-              return ListTile(
-                leading: Image.network(product.imageUrl),
-                title: Text(product.name),
-                subtitle: Text("${product.price}"),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductView(product)),
-                  );
-                },
-              );
+          child: StreamBuilder<List<Product>>(
+            stream: ProductService().getProductStream(),
+            builder: (context, snapShot) {
+              if (snapShot.hasData &&
+                  snapShot.connectionState != ConnectionState.done) {
+                final List<Product> products = snapShot.data;
+                return ListView.builder(
+                  // itemCount: productController.products.length,
+                  itemCount: products.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Product product = products[index];
+                    return ListTile(
+                      leading: Image.network(product.imageUrl),
+                      title: Text(product.name),
+                      subtitle: Text("${product.price}"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductView(product)),
+                        );
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
             },
           ),
         ),
       ),
     );
-  }
-
-  void loadData() async {
-    await productController.getProducts();
-    setState(() {});
   }
 }

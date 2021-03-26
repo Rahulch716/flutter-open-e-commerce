@@ -1,121 +1,121 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:opencommerce/models/models.dart';
 
-class FillProduct extends StatefulWidget {
-  @override
-  _FillProductState createState() => _FillProductState();
-}
+class FillProduct extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  final Product product;
 
-class _FillProductState extends State<FillProduct> {
-  final nameController = TextEditingController();
-  final imageUrlController = TextEditingController();
-  final priceController = TextEditingController();
-  final inStockController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final manufacturerController = TextEditingController();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    nameController.dispose();
-    imageUrlController.dispose();
-    priceController.dispose();
-    inStockController.dispose();
-    descriptionController.dispose();
-    manufacturerController.dispose();
-    super.dispose();
-  }
+  FillProduct(this.product);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        title: Text("EDIT"),
-      ),
-      body: Container(
-        child: ListView(
-          children: [
-            TextFormField(
-              controller: nameController,
-              decoration: InputDecoration(
-                  labelText: "Name of Product",
-                  enabledBorder: OutlineInputBorder()),
-            ),
-            SizedBox(height: 5),
-            TextFormField(
-              controller: imageUrlController,
-              decoration: InputDecoration(
-                  labelText: "Image Url",
-                  enabledBorder: OutlineInputBorder()),
-            ),
-            SizedBox(height: 5),
-            TextFormField(
-              controller: priceController,
-              decoration: InputDecoration(
-                  labelText: "Price of Product",
-                  enabledBorder: OutlineInputBorder()),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              controller: manufacturerController,
-              decoration: InputDecoration(
-                  labelText: "Manufacturer",
-                  enabledBorder: OutlineInputBorder()),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              controller: descriptionController,
-              decoration: InputDecoration(
-                  labelText: "Product Description",
-                  enabledBorder: OutlineInputBorder()),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              controller: inStockController,
-              decoration: InputDecoration(
-                  labelText: "In Stock", enabledBorder: OutlineInputBorder()),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  updateProduct();
-                },
-                child: Text("Update"))
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Product Add/Edit"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () {
+                var form = _formKey.currentState;
+                if (form.validate()) {
+                  /// data is valid. lets save the form.
+                  form.save();
+
+                  product.inStock = true;
+
+                  /// form data is now valid. you may save to db.
+                  if (product.id != null) {
+                    FirebaseFirestore.instance
+                        .collection("Products")
+                        .doc(product.id)
+                        .set(product.toMap(), SetOptions(merge: true));
+                  } else {
+                    FirebaseFirestore.instance
+                        .collection("Products")
+                        .doc()
+                        .set(product.toMap(), SetOptions(merge: true));
+                  }
+
+                  Navigator.pop(context);
+                }
+              },
+            )
           ],
         ),
-        padding: EdgeInsets.all(10),
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
+            children: [
+              // this.name,
+              TextFormField(
+                initialValue: product.name,
+                decoration: InputDecoration(
+                  labelText: "Product Name",
+                ),
+                validator: (value) => _validate(value, "Product Name"),
+                onSaved: (value) {
+                  product.name = value;
+                },
+              ),
+              // this.price,
+              TextFormField(
+                keyboardType: TextInputType.number,
+                initialValue:
+                    product.price != null ? product.price.toString() : '',
+                validator: (value) => _validate(value, "Price"),
+                decoration: InputDecoration(
+                  labelText: "Product price",
+                ),
+                onSaved: (value) {
+                  product.price = double.parse(value);
+                },
+              ), // this.imageUrl,
+              TextFormField(
+                initialValue: product.imageUrl,
+                validator: (value) => _validate(value, "Image Url"),
+                decoration: InputDecoration(
+                  labelText: "Product Image Url",
+                ),
+                onSaved: (value) => product.imageUrl = value,
+              ), // this.description,
+              TextFormField(
+                initialValue: product.description,
+                validator: (value) => _validate(value, "Description"),
+                decoration: InputDecoration(
+                  labelText: "Product description",
+                ),
+                minLines: 2,
+                maxLines: 4,
+                onSaved: (value) => product.description = value,
+              ),
+
+              // this.manufacturer,
+              TextFormField(
+                initialValue: product.manufacturer,
+                validator: (value) => _validate(value, "Manufacturer"),
+                decoration: InputDecoration(
+                  labelText: "Product manufacturer",
+                ),
+                onSaved: (value) => product.manufacturer = value,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              // this.inStock,
+            ],
+          ),
+        ),
       ),
-    ));
-
-
+    );
   }
-  void updateProduct (){
-    String name = nameController.text;
-    String imageUrl = imageUrlController.text;
-    String manufacturer = manufacturerController.text;
-    String description = descriptionController.text;
-    String price = priceController.text;
-    String inStock = inStockController.text;
-    //bool inStock = forBool  == 'true';
 
-    Map<String, dynamic> product = {
-      "name": name == null ? null : name,
-      "price": price == null ? null : price,
-      "imageUrl": imageUrl == null ? null : imageUrl,
-      "manufacturer": manufacturer == null ? null : manufacturer,
-      "description": description == null ? null : description,
-      "inStock": inStock == null ? null : inStock,
-
-
-    };
-    FirebaseFirestore.instance.collection("Products").add(product);
-
+  _validate(value, fieldName) {
+    if (value.isEmpty) {
+      return "$fieldName is required.";
+    } else
+      return null;
   }
 }
-

@@ -23,7 +23,7 @@ class CheckoutView extends StatelessWidget {
               return ListTile(
                 leading: Image.network(product.imageUrl),
                 title: Text(product.name),
-                subtitle: Text("${product.price}"),
+                //subtitle: Text("${product.price}"),
                 onTap: () {
                   Navigator.push(
                     context,
