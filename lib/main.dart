@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:opencommerce/models/models.dart';
 import 'package:opencommerce/views/auth_view.dart';
+import 'package:opencommerce/views/home_view.dart';
+import 'package:opencommerce/views/product_updator.dart';
+import 'package:opencommerce/views/widgets/cart_view_product.dart';
 import 'package:opencommerce/views/widgets/profile_page.dart';
 import 'package:opencommerce/views/widgets/profile_update_view.dart';
 
@@ -28,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter e-commerce',
       home:
-          initialized ? ProfileUpdate() : Center(child: CircularProgressIndicator()),
+      initialized ? CartView() : Center(child: CircularProgressIndicator()),
     );
   }
 

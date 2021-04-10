@@ -19,7 +19,7 @@ class _ProductViewState extends State<ProductView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Product"),
+          title: Text("${widget.product.name}"),
           actions: [
             IconButton(
               icon: Icon(Icons.edit),
@@ -50,11 +50,11 @@ class _ProductViewState extends State<ProductView> {
               SizedBox(
                 height: 10.0,
               ),
-              Text(
-                widget.product.inStock ? 'In-Stock' : 'Out of stock',
-                style: TextStyle(
-                    color: widget.product.inStock ? Colors.green : Colors.red),
-              ),
+              // Text(
+              //   widget.product.inStock ? 'In-Stock' : 'Out of stock',
+              //   style: TextStyle(
+              //       color: widget.product.inStock ? Colors.green : Colors.red),
+              // ),
               Text(widget.product.description),
               Spacer(),
               Row(
@@ -67,8 +67,8 @@ class _ProductViewState extends State<ProductView> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CheckoutView(
-                                      products: [widget.product],
-                                    )));
+                                  products: [widget.product],
+                                )));
                       },
                       child: Text('Buy')),
                 ],

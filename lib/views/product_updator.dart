@@ -6,7 +6,7 @@ class FillProduct extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final Product product;
 
-  FillProduct(this.product);
+  FillProduct([this.product]);
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +23,19 @@ class FillProduct extends StatelessWidget {
                   /// data is valid. lets save the form.
                   form.save();
 
-                  product.inStock = true;
+                  // product.inStock = true;
 
                   /// form data is now valid. you may save to db.
                   if (product.id != null) {
+
+                    /// update
                     FirebaseFirestore.instance
                         .collection("Products")
                         .doc(product.id)
                         .set(product.toMap(), SetOptions(merge: true));
                   } else {
+
+                    /// create
                     FirebaseFirestore.instance
                         .collection("Products")
                         .doc()
@@ -64,7 +68,7 @@ class FillProduct extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.number,
                 initialValue:
-                    product.price != null ? product.price.toString() : '',
+                product.price != null ? product.price.toString() : '',
                 validator: (value) => _validate(value, "Price"),
                 decoration: InputDecoration(
                   labelText: "Product price",

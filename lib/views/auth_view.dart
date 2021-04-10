@@ -1,24 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:opencommerce/controler/product_controler.dart';
 import 'Sign_in.dart';
 import 'home_view.dart';
 
-class AuthView extends StatefulWidget {
-  @override
-  _AuthViewState createState() => _AuthViewState();
-}
-
-class _AuthViewState extends State<AuthView> {
-  final ProductController productController = ProductController();
-
-  @override
-  void initState() {
-    loadData();
-
-    super.initState();
-  }
-
+class AuthView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -36,10 +21,5 @@ class _AuthViewState extends State<AuthView> {
         }
       },
     );
-  }
-
-  void loadData() async {
-    await productController.getProducts();
-    setState(() {});
   }
 }

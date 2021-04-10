@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final product = productFromMap(jsonString);
-
 import 'dart:convert';
 
 Product productFromMap(String str) => Product.fromMap(json.decode(str));
@@ -16,7 +12,7 @@ class Product {
     this.imageUrl,
     this.description,
     this.manufacturer,
-    this.inStock,
+    // this.inStock,
   });
 
   String id;
@@ -25,7 +21,7 @@ class Product {
   String imageUrl;
   String description;
   String manufacturer;
-  bool inStock;
+  // bool inStock;
 
   Product copyWith({
     String id,
@@ -34,7 +30,7 @@ class Product {
     String imageUrl,
     String description,
     String manufacturer,
-    bool inStock,
+    // bool inStock,
   }) =>
       Product(
         id: id ?? this.id,
@@ -43,27 +39,51 @@ class Product {
         imageUrl: imageUrl ?? this.imageUrl,
         description: description ?? this.description,
         manufacturer: manufacturer ?? this.manufacturer,
-        inStock: inStock ?? this.inStock,
+        // inStock: inStock ?? this.inStock,
       );
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        price: json["price"] == null ? null : json["price"].toDouble(),
-        imageUrl: json["imageUrl"] == null ? null : json["imageUrl"],
-        description: json["description"] == null ? null : json["description"],
-        manufacturer:
-            json["manufacturer"] == null ? null : json["manufacturer"],
-        inStock: json["inStock"] == null ? null : json["inStock"],
-      );
+    id: json["id"] == null ? null : json["id"],
+    name: json["name"] == null ? null : json["name"],
+    price: json["price"] == null ? null : json["price"].toDouble(),
+    imageUrl: json["imageUrl"] == null ? null : json["imageUrl"],
+    description: json["description"] == null ? null : json["description"],
+    manufacturer:
+    json["manufacturer"] == null ? null : json["manufacturer"],
+    // inStock: json["inStock"] == null ? null : json["inStock"],
+  );
 
   Map<String, dynamic> toMap() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "price": price == null ? null : price,
-        "imageUrl": imageUrl == null ? null : imageUrl,
-        "description": description == null ? null : description,
-        "manufacturer": manufacturer == null ? null : manufacturer,
-        "inStock": inStock == null ? null : inStock,
-      };
+    "id": id == null ? null : id,
+    "name": name == null ? null : name,
+    "price": price == null ? null : price,
+    "imageUrl": imageUrl == null ? null : imageUrl,
+    "description": description == null ? null : description,
+    "manufacturer": manufacturer == null ? null : manufacturer,
+    // "inStock": inStock == null ? null : inStock,
+  };
+}
+
+class Profile {
+  String name;
+  String email;
+  String phone;
+
+  /// constructor
+  Profile({this.name, this.email, this.phone});
+
+  /// fromMap
+  factory Profile.fromMap(Map<String, dynamic> json) => Profile(
+    name: json['name'] == null ? null : json["name"],
+    email: json['email'] == null ? null : json["email"],
+    phone:
+    json['phone'] == null ? null : json["phone"],
+  );
+
+  ///toMap()
+  Map<String, dynamic> toMap() => {
+    "name": name == null ? null : name,
+    "email": email == null ? null : email,
+    "phone": phone == null ? null : phone,
+  };
 }

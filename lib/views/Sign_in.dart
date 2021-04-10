@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:opencommerce/controler/auth_controller.dart';
+import 'package:opencommerce/views/home_view.dart';
 
-class SignInView extends StatefulWidget {
-  @override
-  _SignInViewState createState() => _SignInViewState();
-}
-
-class _SignInViewState extends State<SignInView> {
+class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        title: Text("Sign In Page"),
+            body: Center(
+      child: Container(
+        child: ElevatedButton(
+          child: Text("Sign In With Google"),
+          onPressed: () {
+            signInWithGoogle();
+          },
+        ),
       ),
-      body: Container(
-        child: Center(child: ElevatedButton(onPressed: signInWithGoogle, child: Text("Sign In"))),
-      ),
-    ));
+    )));
   }
 }
