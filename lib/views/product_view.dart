@@ -4,6 +4,8 @@ import 'package:opencommerce/views/checkout_view.dart';
 import 'package:opencommerce/views/product_updator.dart';
 import 'package:opencommerce/views/widgets/cart_icon.dart';
 
+import '../main.dart';
+
 class ProductView extends StatefulWidget {
   final Product product;
 
@@ -50,25 +52,24 @@ class _ProductViewState extends State<ProductView> {
               SizedBox(
                 height: 10.0,
               ),
-              // Text(
-              //   widget.product.inStock ? 'In-Stock' : 'Out of stock',
-              //   style: TextStyle(
-              //       color: widget.product.inStock ? Colors.green : Colors.red),
-              // ),
               Text(widget.product.description),
               Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: () {}, child: Text('Add to Cart')),
+                  ElevatedButton(
+                      onPressed: () {cart.products.add(widget.product);
+
+                      },
+                      child: Text('Add to Cart')),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CheckoutView(
-                                  products: [widget.product],
-                                )));
+                                      products: [widget.product],
+                                    )));
                       },
                       child: Text('Buy')),
                 ],

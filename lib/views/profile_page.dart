@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/models/models.dart';
-import 'package:opencommerce/views/widgets/profile_update_view.dart';
+import 'package:opencommerce/views/profile_update_view.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatelessWidget{
   Profile _profile;
 
   ProfileView(this._profile);
@@ -20,9 +19,7 @@ class ProfileView extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProfileUpdate(
-                          profile: _profile,
-                        )));
+                        builder: (context) => ProfileUpdate(profile:Profile() )));
               },
             )
           ],
@@ -56,4 +53,5 @@ class ProfileView extends StatelessWidget {
       ),
     );
   }
+
 }

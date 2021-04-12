@@ -2,13 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/models/models.dart';
-import 'package:opencommerce/views/widgets/profile_page.dart';
+import 'package:opencommerce/views/profile_page.dart';
 
-class ProfileUpdate extends StatelessWidget {
+
+class ProfileUpdate extends StatefulWidget {
   Profile profile = Profile();
 
   ProfileUpdate({this.profile});
 
+  @override
+  _ProfileUpdateState createState() => _ProfileUpdateState();
+}
+
+class _ProfileUpdateState extends State<ProfileUpdate> {
   /// form key
   final _formKey = GlobalKey<FormState>();
 
@@ -38,17 +44,17 @@ class ProfileUpdate extends StatelessWidget {
                       await FirebaseFirestore.instance
                           .collection("profiles")
                           .doc(user.uid)
-                          .set(profile.toMap());
+                          .set(widget.profile.toMap());
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfileView(profile)));
+                              builder: (context) => ProfileView(widget.profile)));
                     } catch (e) {
                       final snackBar = SnackBar(
                           backgroundColor: Colors.red,
                           content: Text('Sorry! something went wrong'));
 
-                      //ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Scaffold.of(context).showSnackBar(snackBar);
                     }
                   } else {}
                 }
@@ -62,26 +68,26 @@ class ProfileUpdate extends StatelessWidget {
             child: ListView(
               children: [
                 TextFormField(
-                  initialValue: profile.name,
+                  initialValue: widget.profile.name,
                   decoration: InputDecoration(labelText: "Full Name"),
                   validator: (value) =>
                       value.isEmpty ? "Please enter your name" : null,
-                  onSaved: (value) => profile.name = value,
+                  onSaved: (value) => widget.profile.name = value,
                 ),
                 TextFormField(
-                  initialValue: profile.email,
+                  initialValue: widget.profile.email,
                   decoration: InputDecoration(labelText: "Email Id"),
                   validator: (value) =>
                       value.isEmpty ? "Please enter your email Id" : null,
-                  onSaved: (value) => profile.email = value,
+                  onSaved: (value) => widget.profile.email = value,
                 ),
                 TextFormField(
-                  initialValue: profile.phone,
+                  initialValue: widget.profile.phone,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(labelText: "Mobile Number"),
                   validator: (value) =>
                       value.isEmpty ? "Please enter your mobile number" : null,
-                  onSaved: (value) => profile.phone = value,
+                  onSaved: (value) => widget.profile.phone = value,
                 ),
               ],
             ),

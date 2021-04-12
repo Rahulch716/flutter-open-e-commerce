@@ -7,9 +7,9 @@ import 'package:opencommerce/models/models.dart';
 import 'package:opencommerce/services/product_service.dart';
 import 'package:opencommerce/views/product_updator.dart';
 import 'package:opencommerce/views/product_view.dart';
+import 'package:opencommerce/views/profile_page.dart';
+import 'package:opencommerce/views/profile_update_view.dart';
 import 'package:opencommerce/views/widgets/cart_icon.dart';
-import 'package:opencommerce/views/widgets/profile_page.dart';
-import 'package:opencommerce/views/widgets/profile_update_view.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -73,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProfileUpdate()));
+                            builder: (context) => ProfileUpdate(profile:Profile())));
                   }
                 },
               )

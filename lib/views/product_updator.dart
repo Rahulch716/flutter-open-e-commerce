@@ -27,14 +27,12 @@ class FillProduct extends StatelessWidget {
 
                   /// form data is now valid. you may save to db.
                   if (product.id != null) {
-
                     /// update
                     FirebaseFirestore.instance
                         .collection("Products")
                         .doc(product.id)
                         .set(product.toMap(), SetOptions(merge: true));
                   } else {
-
                     /// create
                     FirebaseFirestore.instance
                         .collection("Products")
@@ -68,7 +66,7 @@ class FillProduct extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.number,
                 initialValue:
-                product.price != null ? product.price.toString() : '',
+                    product.price != null ? product.price.toString() : '',
                 validator: (value) => _validate(value, "Price"),
                 decoration: InputDecoration(
                   labelText: "Product price",
