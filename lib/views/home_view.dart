@@ -50,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               ListTile(
-                title: Text("Profile"),
+                title: Text("Profile",style: TextStyle(fontSize: 21),),
                 onTap: () async {
                   Profile _profile;
 

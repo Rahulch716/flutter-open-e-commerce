@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:opencommerce/models/models.dart';
 import 'package:opencommerce/views/profile_page.dart';
 
-
+// ignore: must_be_immutable
 class ProfileUpdate extends StatefulWidget {
   Profile profile = Profile();
 
@@ -45,10 +45,12 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                           .collection("profiles")
                           .doc(user.uid)
                           .set(widget.profile.toMap());
+                      Navigator.pop(context);
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfileView(widget.profile)));
+                              builder: (context) =>
+                                  ProfileView(widget.profile)));
                     } catch (e) {
                       final snackBar = SnackBar(
                           backgroundColor: Colors.red,
@@ -62,7 +64,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
             )
           ],
         ),
-        body:Container(
+        body: Container(
           child: Form(
             key: _formKey,
             child: ListView(

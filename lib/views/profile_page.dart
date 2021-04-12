@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:opencommerce/models/models.dart';
 import 'package:opencommerce/views/profile_update_view.dart';
 
+// ignore: must_be_immutable
 class ProfileView extends StatelessWidget{
   Profile _profile;
 
@@ -11,7 +12,7 @@ class ProfileView extends StatelessWidget{
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(title: Center(child: Text('My Profile',)),
           actions: [
             IconButton(
               icon: Icon(Icons.edit),

@@ -7,15 +7,17 @@ class CartItem extends StatelessWidget {
   CartItem(this.product);
 
   set total(value) => product.price = value;
+  set discount(value)=> product.price = value;
+  get discount=> product.price*10/100 ;
 
-  get total => product.price - 1000;
+  get total => product.price - discount;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Card(
-          color: Colors.black26,
+          color: Colors.black54,
           child: Container(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -58,14 +60,40 @@ class CartItem extends StatelessWidget {
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                        onPressed: () => print(Text('hg')),
-                        child: Text("Save For Later")),
-                    ElevatedButton(
-                        onPressed: () => print(Text('jf')),
-                        child: Text("Remove")),
+                    Expanded(
+                      child: ListTile(
+                        tileColor: Colors.black54,
+                        title: Text(
+                          'Save For Later',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onTap: () {
+                          print(Text('xd'));
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: ListTile(
+                        tileColor: Colors.black54,
+                        title: Text(
+                          'Remove',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onTap: () {
+                          print(Text('gg'));
+                        },
+                      ),
+                    ),
+                    // ElevatedButton(
+                    //     onPressed: () => print(Text('hg')),
+                    //     child: Text("Save For Later")),
+                    // ElevatedButton(
+                    //     onPressed: () => print(Text('jf')),
+                    //     child: Text("Remove")),
                   ],
                 )
               ],
@@ -116,11 +144,11 @@ class CartItem extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          "${product.price}",
+                          '${product.price}',
                           style: TextStyle(fontSize: 22, color: Colors.white),
                         ),
                         Text(
-                          '-₹ 250',
+                          "$discount",
                           style:
                               TextStyle(fontSize: 22, color: Colors.lightGreen),
                         ),
