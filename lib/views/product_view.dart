@@ -1,10 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/models/models.dart';
-import 'package:opencommerce/views/checkout_view.dart';
 import 'package:opencommerce/views/product_updator.dart';
 import 'package:opencommerce/views/widgets/cart_icon.dart';
 
-import '../main.dart';
 
 class ProductView extends StatefulWidget {
   final Product product;
@@ -58,20 +57,22 @@ class _ProductViewState extends State<ProductView> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                      onPressed: () {cart.products.add(widget.product);
+                      onPressed: () {
+                        FirebaseFirestore.instance
+                            .collection("Cart")
+                            .doc(widget.product.id)
+                            .set(widget.product.toMap(),
+                                SetOptions(merge: true));
 
+                        var snackBar = SnackBar(
+                          content:
+                              Text("${widget.product.name} Added To The Cart"),
+                          duration: Duration(seconds: 1),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Text('Add to Cart')),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CheckoutView(
-                                      products: [widget.product],
-                                    )));
-                      },
-                      child: Text('Buy')),
+                  ElevatedButton(onPressed: () {}, child: Text('Buy Now')),
                 ],
               ),
               Spacer()

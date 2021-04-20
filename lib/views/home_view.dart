@@ -40,17 +40,27 @@ class _HomeViewState extends State<HomeView> {
           child: ListView(
             children: [
               Container(
-                color: Colors.grey,
+                color: Colors.blue.shade200,
                 child: SizedBox(
                   height: 150.0,
                   child: Icon(
                     Icons.person,
                     size: 60.0,
+                    color: Colors.yellow.shade300,
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
               ListTile(
-                title: Text("Profile",style: TextStyle(fontSize: 21),),
+                tileColor: Colors.blue.shade200,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(fontSize: 21),
+                ),
                 onTap: () async {
                   Profile _profile;
 
@@ -73,7 +83,8 @@ class _HomeViewState extends State<HomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProfileUpdate(profile:Profile())));
+                            builder: (context) =>
+                                ProfileUpdate(profile: Profile())));
                   }
                 },
               )

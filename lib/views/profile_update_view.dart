@@ -56,7 +56,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                           backgroundColor: Colors.red,
                           content: Text('Sorry! something went wrong'));
 
-                      Scaffold.of(context).showSnackBar(snackBar);
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   } else {}
                 }
