@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:opencommerce/models/models.dart';
 
-
 class CartItem extends StatelessWidget {
   final Product product;
+
   CartItem(this.product);
 
   @override
@@ -12,7 +12,10 @@ class CartItem extends StatelessWidget {
     return Column(
       children: [
         Card(
-          color: Colors.black54,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          color: Colors.teal[200],
+          margin: EdgeInsets.all(6),
           child: Container(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -22,15 +25,18 @@ class CartItem extends StatelessWidget {
                     Flexible(
                       child: Text(
                         product.name,
-                        style: TextStyle(fontSize: 22, color: Colors.white),
+                        style: TextStyle(fontSize: 22,),
                       ),
                     ),
                     SizedBox(
                       width: 25,
                     ),
                     Flexible(
-                      child: Image.network(
-                        product.imageUrl,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          product.imageUrl,
+                        ),
                       ),
                     )
                   ],
@@ -39,7 +45,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     Text(
                       "${product.price}",
-                      style: TextStyle(fontSize: 22, color: Colors.white),
+                      style: TextStyle(fontSize: 22,),
                     ),
                   ],
                 ),
@@ -47,7 +53,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     Text(
                       'Delivery By',
-                      style: TextStyle(fontSize: 22, color: Colors.white),
+                      style: TextStyle(fontSize: 22,),
                     )
                   ],
                 ),
@@ -58,32 +64,41 @@ class CartItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: ListTile(
-                        tileColor: Colors.black54,
-                        title: Text(
-                          'Save For Later',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onTap: () {
-                          print(Text('xd'));
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: ListTile(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: ListTile(
                           tileColor: Colors.black54,
                           title: Text(
-                            'Remove',
+                            'Save For Later',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),
                           ),
                           onTap: () {
-                            FirebaseFirestore.instance
-                                .collection("Cart")
-                                .doc(product.id)
-                                .delete();
-                          }),
+                            print(Text('xd'));
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: ListTile(
+                            tileColor: Colors.black54,
+                            title: Text(
+                              'Remove',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () {
+                              FirebaseFirestore.instance
+                                  .collection("Cart")
+                                  .doc(product.id)
+                                  .delete();
+                            }),
+                      ),
                     ),
                   ],
                 )

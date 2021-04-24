@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:opencommerce/views/cart_view.dart';
 
-import '../../main.dart';
-
 class CartIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

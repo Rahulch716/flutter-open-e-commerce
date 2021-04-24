@@ -40,53 +40,52 @@ class _HomeViewState extends State<HomeView> {
           child: ListView(
             children: [
               Container(
-                color: Colors.blue.shade200,
+                color: Colors.blue,
                 child: SizedBox(
                   height: 150.0,
                   child: Icon(
                     Icons.person,
                     size: 60.0,
-                    color: Colors.yellow.shade300,
+                    color: Colors.black87,
                   ),
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
-              ListTile(
-                tileColor: Colors.blue.shade200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                title: Text(
-                  "Profile",
-                  style: TextStyle(fontSize: 21),
+              ClipRRect(
+                child: ListTile(
+                  title: Text(
+                    "Profile",
+                    style: TextStyle(fontSize: 21),
+                  ),
+                  onTap: () async {
+                    Profile _profile;
+
+                    /// fetch profile from firebase if exist
+                    final user = FirebaseAuth.instance.currentUser;
+                    DocumentSnapshot doc = await FirebaseFirestore.instance
+                        .collection("profiles")
+                        .doc(user.uid)
+                        .get();
+                    if (doc.exists) {
+                      _profile = Profile.fromMap(doc.data());
+                    }
+
+                    if (_profile != null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileView(_profile)));
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ProfileUpdate(profile: Profile())));
+                    }
+                  },
                 ),
-                onTap: () async {
-                  Profile _profile;
-
-                  /// fetch profile from firebase if exist
-                  final user = FirebaseAuth.instance.currentUser;
-                  DocumentSnapshot doc = await FirebaseFirestore.instance
-                      .collection("profiles")
-                      .doc(user.uid)
-                      .get();
-                  if (doc.exists) {
-                    _profile = Profile.fromMap(doc.data());
-                  }
-
-                  if (_profile != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProfileView(_profile)));
-                  } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ProfileUpdate(profile: Profile())));
-                  }
-                },
               )
             ],
           ),

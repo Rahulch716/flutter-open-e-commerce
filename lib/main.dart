@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:opencommerce/models/models.dart';
 import 'package:opencommerce/views/auth_view.dart';
+import 'package:opencommerce/views/widgets/price_details.dart';
 
 void main() {
   runApp(MyApp());

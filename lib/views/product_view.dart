@@ -4,7 +4,6 @@ import 'package:opencommerce/models/models.dart';
 import 'package:opencommerce/views/product_updator.dart';
 import 'package:opencommerce/views/widgets/cart_icon.dart';
 
-
 class ProductView extends StatefulWidget {
   final Product product;
 

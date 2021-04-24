@@ -65,6 +65,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
           ],
         ),
         body: Container(
+          padding: EdgeInsets.all(3),
           child: Form(
             key: _formKey,
             child: ListView(
@@ -90,6 +91,68 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                   validator: (value) =>
                       value.isEmpty ? "Please enter your mobile number" : null,
                   onSaved: (value) => widget.profile.phone = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.state,
+                  decoration: InputDecoration(
+                      labelText: "State",
+                      helperText: "Optional",
+                      helperStyle: TextStyle(color: Colors.green)),
+                  // validator: (value) =>
+                  //     value.isEmpty ? "Please enter valid data" : null,
+                  onSaved: (value) => widget.profile.state = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.city,
+                  decoration: InputDecoration(
+                      labelText: "City",
+                      helperText: "Optional",
+                      helperStyle: TextStyle(color: Colors.green)),
+                  // validator: (value) =>
+                  //     value.isEmpty ? "Please enter valid data" : null,
+                  onSaved: (value) => widget.profile.city = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.pin,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                      labelText: "Pin",
+                      helperText: "Optional",
+                      helperStyle: TextStyle(color: Colors.green)),
+                  // validator: (value) =>
+                  //     value.isEmpty ? "Please enter valid data" : null,
+                  onSaved: (value) => widget.profile.pin = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.landmark,
+                  decoration: InputDecoration(
+                      labelText: "Landmark",
+                      helperText: "Optional",
+                      helperStyle: TextStyle(color: Colors.green)),
+                  // validator: (value) =>
+                  //     value.isEmpty ? "Please enter valid data" : null,
+                  onSaved: (value) => widget.profile.landmark = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.address,
+                  decoration: InputDecoration(
+                      labelText: "Address",
+                      helperText: "Optional",
+                      helperStyle: TextStyle(color: Colors.green)),
+                  // validator: (value) =>
+                  //     value.isEmpty ? "Please enter valid data" : null,
+                  onSaved: (value) => widget.profile.address = value,
+                ),
+                TextFormField(
+                  initialValue: widget.profile.mobile,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                      labelText: "Mobile Number",
+                      helperText: "Optional",
+                      helperStyle: TextStyle(color: Colors.green)),
+                  // validator: (value) =>
+                  //     value.isEmpty ? "Please enter your mobile number" : null,
+                  onSaved: (value) => widget.profile.mobile = value,
                 ),
               ],
             ),
